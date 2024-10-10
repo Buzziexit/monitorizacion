@@ -8,6 +8,8 @@ read -p "¿Cual es tu ip? " ip
 apt update -y
 apt upgrade -y
 
+# Prometheus
+
 useradd --no-create-home --shell /bin/false prometheus
 mkdir /etc/prometheus
 mkdir /var/lib/prometheus
@@ -50,6 +52,7 @@ Group=prometheus
 Type=simple
 ExecStart=/usr/local/bin/prometheus \
 --config.file /etc/prometheus/prometheus.yml \
+--storage.tsdb.retention.time=90d \ 
 --storage.tsdb.path /var/lib/prometheus/ \
 --web.console.templates=/etc/prometheus/consoles \
 --web.console.libraries=/etc/prometheus/console_libraries
