@@ -110,6 +110,8 @@ En esta sección, se exploran herramientas clave para la monitorización de sist
    - [2.3. Grafana](graf.md)
 
    - [2.4. Script instalacion](pg.sh)
+     
+   - [2.4.2. Seguridad en Node_exporter](https://medium.com/@abdullah.eid.2604/prometheus-node-exporter-security-9118f65a9f59)
 
    - [2.5 Script Apache_exporter](ae.sh)
 
