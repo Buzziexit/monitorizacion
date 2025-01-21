@@ -16,7 +16,7 @@ useradd  -s /sbin/nologin --system -g prometheus prometheus
 
 cat <<EOF >>/etc/systemd/system/apache_exporter.service
 [Unit]
-Description=Prometheus
+Description=Prometheus Apache Exporter
 Documentation=https://github.com/Lusitaniae/apache_exporter
 Wants=network-online.target
 After=network-online.target
@@ -25,13 +25,12 @@ After=network-online.target
 Type=simple
 User=prometheus
 Group=prometheus
-ExecReload=/bin/kill -HUP $MAINPID
-ExecStart=/usr/local/bin/apache_exporter 
-  --insecure 
-  --scrape_uri=http://localhost/server-status/?auto 
-  --telemetry.address=0.0.0.0:9117 
-  --telemetry.endpoint=/metrics
+ExecStart=/usr/local/bin/apache_exporter \
+  --insecure \
+  --scrape_uri=http://localhost/server-status?auto \
+  --web.listen-address=0.0.0.0:9117
 
+ExecReload=/bin/kill -HUP $MAINPID
 SyslogIdentifier=apache_exporter
 Restart=always
 
@@ -48,8 +47,7 @@ cat <<EOF >>/etc/prometheus/prometheus.yml
  - job_name: apache-web-server
    static_configs:
    - targets: ['localhost:9117']
-     labels:
-       alias: server-apache
+
 EOF
 
 systemctl restart prometheus
