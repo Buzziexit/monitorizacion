@@ -85,6 +85,7 @@ User=node_exporter
 Group=node_exporter
 Type=simple
 ExecStart=/usr/local/bin/node_exporter
+#ExecStart=/usr/local/bin/node_exporter --web.config /etc/node_exporter/config.yml
 
 [Install]
 
